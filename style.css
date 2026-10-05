@@ -1,0 +1,107 @@
+
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080713;color:#fff;font-family:Inter,Arial,sans-serif}
+body{min-height:100vh}
+
+.background,.background video{position:fixed;inset:0;width:100%;height:100%}
+.background{z-index:0;overflow:hidden}
+.background video{object-fit:cover;object-position:center}
+
+.backdrop{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(4,3,16,.08),rgba(4,3,16,.18) 55%,rgba(4,3,16,.32));
+}
+
+/* Screenshot-style layout: no card/box at all. */
+.page{
+  position:relative;z-index:2;min-height:100vh;width:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+}
+.profile{
+  width:auto;max-width:95vw;padding:0;
+  text-align:center;background:transparent;border:0;
+  border-radius:0;box-shadow:none;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  animation:rise .7s ease both;
+}
+
+/* Hide the extra profile UI so only the name + icon row remains. */
+.avatar,.status,.tag,.bio,.meta{display:none}
+
+.name{
+  display:flex;justify-content:center;align-items:center;
+  margin:0 0 22px;
+  color:#f8f7ff;
+  font-size:clamp(38px,7vw,68px);
+  line-height:.95;
+  letter-spacing:-.055em;
+  font-weight:700;
+  text-shadow:
+    0 0 5px rgba(255,255,255,.55),
+    0 0 18px rgba(220,205,255,.55),
+    0 0 38px rgba(186,154,255,.25);
+}
+.name span{
+  display:inline-block;
+  animation:nameFloat 3.8s ease-in-out infinite;
+  animation-delay:calc(var(--n)*.07s);
+}
+.name span:nth-child(1){--n:1}.name span:nth-child(2){--n:2}
+.name span:nth-child(3){--n:3}.name span:nth-child(4){--n:4}
+.name span:nth-child(5){--n:5}.name span:nth-child(6){--n:6}
+.name span:nth-child(7){--n:7}.name span:nth-child(8){--n:8}
+.name span:nth-child(9){--n:9}.name span:nth-child(10){--n:10}
+
+.socials{
+  display:flex;align-items:center;justify-content:center;
+  gap:10px;flex-wrap:wrap;
+}
+.social{
+  width:42px;height:42px;display:grid;place-items:center;
+  color:#f6f4ff;opacity:.9;text-decoration:none;
+  filter:drop-shadow(0 0 6px rgba(232,220,255,.35));
+  transition:transform .2s ease,opacity .2s ease,filter .2s ease;
+}
+.social svg{width:29px;height:29px;fill:currentColor}
+.social:hover{
+  opacity:1;transform:translateY(-4px) scale(1.1);
+  filter:drop-shadow(0 0 13px rgba(242,233,255,.95));
+}
+
+.sound{
+  position:fixed;z-index:4;right:20px;bottom:20px;
+  width:40px;height:40px;border:1px solid rgba(255,255,255,.18);
+  border-radius:50%;background:rgba(8,8,16,.32);color:#fff;
+  cursor:pointer;backdrop-filter:blur(8px);
+}
+
+.enter{
+  position:fixed;inset:0;z-index:10;display:grid;place-items:center;
+  background:#080713;transition:opacity .55s ease,visibility .55s ease;
+}
+.enter.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.enter>div{text-align:center}
+.mini{display:none}
+#enterButton{
+  padding:13px 30px;border:1px solid rgba(255,255,255,.4);
+  border-radius:999px;background:rgba(255,255,255,.07);
+  color:#fff;font:inherit;font-size:12px;letter-spacing:.12em;
+  cursor:pointer;transition:.2s ease;
+}
+#enterButton:hover{background:rgba(255,255,255,.15);transform:translateY(-1px)}
+.hint{margin-top:13px;color:rgba(255,255,255,.3);font-size:10px}
+
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes nameFloat{
+  0%,100%{transform:translateY(0);filter:brightness(1)}
+  50%{transform:translateY(-3px);filter:brightness(1.14)}
+}
+
+@media(max-width:520px){
+  .name{font-size:clamp(32px,10vw,50px);margin-bottom:17px}
+  .socials{gap:5px}
+  .social{width:38px;height:38px}
+  .social svg{width:26px;height:26px}
+  .sound{right:14px;bottom:14px}
+}
